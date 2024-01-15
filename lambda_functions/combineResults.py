@@ -2,11 +2,5 @@ import json
 
 
 def lambda_handler(event, context):
-    # TODO implement
-    return {
-        'day': "Monday",
-        'date': "",
-        'time': "",
-        'totalSpots': 300,
-        'emptySpots': 122
-    }
+    
+    return {**event[0], **event[1]}
