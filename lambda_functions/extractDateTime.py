@@ -11,7 +11,7 @@ def lambda_handler(event, context):
 
     # Extracting date and time components
     date_str = image_name[:10]
-    time_str = image_name[11:19].replace('_', ':')
+    time_str = image_name[11:16].replace('_', ':')
 
     # 0 for monday
     weekday = datetime.strptime(date_str, '%Y-%m-%d').date().weekday()
