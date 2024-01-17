@@ -13,10 +13,17 @@ def lambda_handler(event, context):
 
     for e in event:
         key = e['Date'] + '_' + e['Time']
+        value = {
+            'Date': e['Date'],
+            'Time': e['Time'],
+            'Weekday': e['Weekday'],
+            'TotalSpots': e['TotalSpots'],
+            'Taken': e['Taken']
+        }
         response = dbtable.put_item(
             Item={
                 'fan': key,
-                'value': e
+                'value': value
             }
         )
 
