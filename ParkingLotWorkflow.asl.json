@@ -8,7 +8,7 @@
       "OutputPath": "$.Payload",
       "Parameters": {
         "Payload.$": "$",
-        "FunctionName": "arn:aws:lambda:us-east-1:000961591954:function:GetImages:$LATEST"
+        "FunctionName": "arn:aws:lambda:us-east-1:468053635244:function:getImages:$LATEST"
       },
       "Retry": [
         {
@@ -23,9 +23,9 @@
           "BackoffRate": 2
         }
       ],
-      "Next": "Map (1)"
+      "Next": "Image Processing Map"
     },
-    "Map (1)": {
+    "Image Processing Map": {
       "Type": "Map",
       "ItemProcessor": {
         "ProcessorConfig": {
@@ -45,7 +45,7 @@
                     "OutputPath": "$.Payload",
                     "Parameters": {
                       "Payload.$": "$",
-                      "FunctionName": "arn:aws:lambda:us-east-1:000961591954:function:ExtractDateTime:$LATEST"
+                      "FunctionName": "arn:aws:lambda:us-east-1:468053635244:function:extractDateTime:$LATEST"
                     },
                     "Retry": [
                       {
@@ -65,15 +65,15 @@
                 }
               },
               {
-                "StartAt": "Count Empty Spots",
+                "StartAt": "Count Taken Spots",
                 "States": {
-                  "Count Empty Spots": {
+                  "Count Taken Spots": {
                     "Type": "Task",
                     "Resource": "arn:aws:states:::lambda:invoke",
                     "OutputPath": "$.Payload",
                     "Parameters": {
                       "Payload.$": "$",
-                      "FunctionName": "arn:aws:lambda:us-east-1:000961591954:function:CountEmptySpots:$LATEST"
+                      "FunctionName": "arn:aws:lambda:us-east-1:468053635244:function:countTakenSpots:$LATEST"
                     },
                     "Retry": [
                       {
@@ -101,7 +101,7 @@
             "OutputPath": "$.Payload",
             "Parameters": {
               "Payload.$": "$",
-              "FunctionName": "arn:aws:lambda:us-east-1:000961591954:function:CombineResults:$LATEST"
+              "FunctionName": "arn:aws:lambda:us-east-1:468053635244:function:combineResults:$LATEST"
             },
             "Retry": [
               {
@@ -129,7 +129,7 @@
       "OutputPath": "$.Payload",
       "Parameters": {
         "Payload.$": "$",
-        "FunctionName": "arn:aws:lambda:us-east-1:000961591954:function:StoreData:$LATEST"
+        "FunctionName": "arn:aws:lambda:us-east-1:468053635244:function:storeData:$LATEST"
       },
       "Retry": [
         {
@@ -144,10 +144,10 @@
           "BackoffRate": 2
         }
       ],
-      "Next": "Map",
+      "Next": "Plot Creation",
       "Comment": "Redis or DynamoDB"
     },
-    "Map": {
+    "Plot Creation": {
       "Type": "Map",
       "ItemProcessor": {
         "ProcessorConfig": {
@@ -161,7 +161,7 @@
             "OutputPath": "$.Payload",
             "Parameters": {
               "Payload.$": "$",
-              "FunctionName": "arn:aws:lambda:us-east-1:000961591954:function:AggregateData:$LATEST"
+              "FunctionName": "arn:aws:lambda:us-east-1:468053635244:function:aggregateData:$LATEST"
             },
             "Retry": [
               {
@@ -184,7 +184,7 @@
             "OutputPath": "$.Payload",
             "Parameters": {
               "Payload.$": "$",
-              "FunctionName": "arn:aws:lambda:us-east-1:000961591954:function:CreateAndStorePlot:$LATEST"
+              "FunctionName": "arn:aws:lambda:us-east-1:468053635244:function:createAndStorePlot:$LATEST"
             },
             "Retry": [
               {
